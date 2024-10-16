@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat GPT Text Bold Converter with Line Breaks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        textarea, div {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        textarea {
+            height: 100px;
+        }
+        div {
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* Keeps the line breaks */
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Convert ** to Bold Tags</h2>
+
+    <textarea id="inputText"></textarea>
+
+    <button onclick="convertToBold()">Convert</button>
+
+    <h3>Converted Text:</h3>
+    <div id="outputText"></div>
+
+    <button onclick="copyOutput()">Copy Output as HTML</button>
+
+    <script>
+        function convertToBold() {
+            // Get the input text
+            let text = document.getElementById('inputText').value;
+
+            // Replace **text** with <b>text</b>
+            let convertedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+            // Replace new lines with <br> for the output div
+            convertedText = convertedText.replace(/\n/g, '<br>');
+
+            // Display the converted text with line breaks
+            document.getElementById('outputText').innerHTML = convertedText;
+        }
+
+        function copyOutput() {
+            // Get the HTML content inside the output div
+            let outputText = document.getElementById('outputText').innerHTML;
+
+            // Create a temporary textarea to hold the HTML content
+            let tempTextArea = document.createElement('textarea');
+            tempTextArea.value = outputText;
+
+            // Add the textarea to the DOM
+            document.body.appendChild(tempTextArea);
+
+            // Select the text and copy it to the clipboard
+            tempTextArea.select();
+            document.execCommand('copy');
+
+            // Remove the textarea after copying
+            document.body.removeChild(tempTextArea);
+
+            alert("Output HTML copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>
